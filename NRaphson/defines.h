@@ -11,6 +11,8 @@
 //Epsilon for differentiation
 #define EPSILON 1e-6
 using std::vector;
+
+//Define vector class
 class Vector {
 private:
 	vector<double> nums;
@@ -31,7 +33,7 @@ public:
 	void assign(const  unsigned& pos, const double & val);
 
 };
-
+//Define Matrix class
 class Matrix {
 private:
 	vector<vector<double>> nums;
@@ -84,8 +86,6 @@ Vector abs(const Vector &a);
 bool operator<(const Vector &a, const double b);
 bool operator>(const Vector &a, const double b);
 bool isnan(const Vector &a);
-
-//Overloads for matrix
 
 
 
