@@ -22,7 +22,7 @@ int main() {
 	bool limited = 0;
 	Vector xy = { 0,0 };
 
-
+	
 	printnums();
 	//asknum(xy);
 
@@ -46,6 +46,7 @@ int main() {
 	return 0;
 }
 
+//Function definition
 Vector fun(Vector xy) {
 	double x = xy.get_n()[0];
 	double y = xy.get_n()[1];
@@ -53,7 +54,7 @@ Vector fun(Vector xy) {
 }
 
 
-
+//Ask for starting point
 void asknum(Vector &v) {
 	double input;
 	bool flag = 0;
@@ -67,6 +68,7 @@ void asknum(Vector &v) {
 	
 }
 
+//Print numbers near 0
 void printnums() {
 	double h;
 	cout << "hvalue " << "Values when y=0 " << "Values when x=0" << endl;
