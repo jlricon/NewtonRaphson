@@ -9,7 +9,7 @@
 //Max gradient allowed
 #define LIMITER 1e4
 //Epsilon for differentiation
-#define EPSILON 1e-6
+#define EPSILON 1e-4
 using std::vector;
 
 //Define vector class
@@ -19,7 +19,7 @@ private:
 public:
 	vector<double> get_n()const { return nums; }
 	vector<double>* get_np() { return &nums; }
-	int len() const;
+	unsigned len() const;
 	void set(std::initializer_list<double>);
 	void set(vector<double> in);
 	Vector(std::initializer_list<double>);

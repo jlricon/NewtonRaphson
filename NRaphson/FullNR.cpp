@@ -14,14 +14,14 @@ using std::endl;
 
 
 ////// Problem definition //////
-Vector xy = { 1,1,1,1};
+Vector xy = {1,1};
 
 Vector fun(Vector xy) {
 	double x = xy.get_n()[0];
 	double y = xy.get_n()[1];
-	double z = xy.get_n()[2];
-	double w = xy.get_n()[3];
-	return Vector({x+y+z*w,y*y+x*x-8,z+w*x-7,x+w*y+z-9});
+	//double z = xy.get_n()[2];
+	
+	return Vector({exp(-exp(-x+y))-y*(1+x*x),x*cos(y)+y*sin(x)-0.5});
 }
 ////// Problem definition //////
 

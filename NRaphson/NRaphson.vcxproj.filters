@@ -21,10 +21,10 @@
     <ClCompile Include="defines.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="FullNR.cpp">
+    <ClCompile Include="invert.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
-    <ClCompile Include="invert.cpp">
+    <ClCompile Include="FullNR.cpp">
       <Filter>Source Files</Filter>
     </ClCompile>
   </ItemGroup>

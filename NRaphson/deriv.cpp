@@ -15,27 +15,58 @@ double deriv(double (*funct)(double), double h, int order = 4) {
 	}
 }
 //Differentiation of vectors for any size
-Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 1) {
+Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 2) {
 	Matrix result(xy.len(), xy.len());
 	Vector hm1 = xy;
 	Vector hm2 = xy;
 	Vector col;
-	//Calculate one column
-	for (int i = 0; i < xy.len(); i++) {
-		
-		hm1.assign(i, xy.get_n()[i] + EPSILON);
-		hm2.assign(i, xy.get_n()[i] - EPSILON);
-		col = (funct(hm1) - funct(hm2)) / (2 * EPSILON);
-		for (int j = 0; j < xy.len(); j++) {
-			result.assign(j, i, col.get_n()[j]);
+	if (order == 2) {
+		//Calculate one column
+		for (unsigned i = 0; i < xy.len(); i++) {
+
+			hm1.assign(i, xy(i) + EPSILON);
+			hm2.assign(i, xy(i) - EPSILON);
+			col = (funct(hm1) - funct(hm2)) / (2 * EPSILON);
+			for (unsigned j = 0; j < xy.len(); j++) {
+				result.assign(j, i, col(j));
+			}
+			hm1.assign(i, xy(i));
+			hm2.assign(i, xy(i));
 		}
-		hm1.assign(i, xy.get_n()[i]);
-		hm2.assign(i, xy.get_n()[i]);
+	}
+	else if (order == 4) {
+		Vector hm3=xy;
+		Vector hm4=xy;
+		for (unsigned i = 0; i < xy.len(); i++) {
+			hm1.assign(i, xy(i) + 2*EPSILON);
+			hm2.assign(i, xy(i) - 2*EPSILON);
+			hm3.assign(i, xy(i) + EPSILON);
+			hm4.assign(i, xy(i) - EPSILON);
+			col = (funct(hm2) - 8*funct(hm4)+8*funct(hm3)-funct(hm1)) / (12 * EPSILON);
+			for (unsigned j = 0; j < xy.len(); j++) {
+				result.assign(j, i, col(j));
+			}
+			hm1.assign(i, xy(i));
+			hm2.assign(i, xy(i));
+			hm3.assign(i, xy(i));
+			hm4.assign(i, xy(i));
+		}
 
 	}
+	else {
+		for (unsigned i = 0; i < xy.len(); i++) {
+
+			hm2.assign(i, xy(i) - EPSILON);
+			col = (funct(xy) - funct(hm2)) / (EPSILON);
+			for (unsigned j = 0; j < xy.len(); j++) {
+				result.assign(j, i, col(j));
+			}
+			hm1.assign(i, xy(i));
+			
+		}
+	}
 	return result;
+	}
 	
-	
-	
-}
+
 

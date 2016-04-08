@@ -14,7 +14,7 @@ Vector::Vector(std::initializer_list<double> i) { nums = i; }
 Vector::Vector(int siz) { nums.resize(siz, 0); }
 void Vector::set(std::initializer_list<double> in) { nums = in; }
 void Vector::set(vector<double> in) { nums = in; }
-int Vector::len() const { return nums.size(); }
+unsigned Vector::len() const { return (unsigned)nums.size(); }
 
 
 std::ostream& operator<<(std::ostream& os, const Vector& obj)
@@ -70,7 +70,7 @@ Vector operator*(const double & a, const Vector & b)
 {
 	Vector result;
 	vector <double> va = b.get_n();
-	std::transform(va.begin(), va.end(), va.begin(), bind2nd(std::plus<double>(), a));
+	std::transform(va.begin(), va.end(), va.begin(), bind2nd(std::multiplies<double>(), a));
 	result.set(va);
 	return result;
 }
@@ -251,7 +251,7 @@ Matrix Matrix::inv() const{
 		}
 	}
 	catch (int n) { std::cout <<n<< "Columns and rows are not equal!"; }
-	
+	return ret;
 }
 
 void Matrix::assign(const unsigned & i, const unsigned& j, const double&val) {
