@@ -1,5 +1,6 @@
 # NRaphson
-This is a code to calculate solutions to nonlinear equations in multiple variables using the Newton-Raphson algorithm
+This is a code to calculate solutions to nonlinear equations in multiple variables using the Newton-Raphson algorithm.
+
 It uses matrix/vector classes to make the main function more readable, and uses an iterative algorithm to calculate matrix inverses.
 
 ## TODO
