@@ -197,7 +197,6 @@ Matrix Matrix::inv()const {
 				ret.assign(0, 1, -ret(0, 1)/det);
 				ret.assign(1, 1, i/det);
 				return ret;
-
 			}
 
 		}
