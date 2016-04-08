@@ -1,7 +1,7 @@
 #include "deriv.h"
 #include "defines.h"
 
-
+//Differentiation of non-vectors
 double deriv(double (*funct)(double), double h, int order = 4) {
 
 	if (order == 2) {
@@ -14,14 +14,25 @@ double deriv(double (*funct)(double), double h, int order = 4) {
 		return(funct(h + EPSILON)-funct(h)) / EPSILON;
 	}
 }
+//Differentiation of vectors for any size
 Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 1) {
 	Matrix result(xy.len(), xy.len());
-	Vector col1=(funct({ xy.get_n()[0] + EPSILON,xy.get_n()[1] }) - funct({ xy.get_n()[0] - EPSILON,xy.get_n()[1] })) /(2* EPSILON);
-	Vector col2 = (funct({ xy.get_n()[0],xy.get_n()[1] + EPSILON }) - funct({ xy.get_n()[0],xy.get_n()[1] - EPSILON })) / (2*EPSILON);
-	result.assign(0, 0, col1(0));
-	result.assign(1, 0, col1(1));
-	result.assign(0, 1, col2(0));
-	result.assign(1, 1, col2(1));
+	Vector hm1 = xy;
+	Vector hm2 = xy;
+	Vector col;
+	//Calculate one column
+	for (int i = 0; i < xy.len(); i++) {
+		
+		hm1.assign(i, xy.get_n()[i] + EPSILON);
+		hm2.assign(i, xy.get_n()[i] - EPSILON);
+		col = (funct(hm1) - funct(hm2)) / (2 * EPSILON);
+		for (int j = 0; j < xy.len(); j++) {
+			result.assign(j, i, col.get_n()[j]);
+		}
+		hm1.assign(i, xy.get_n()[i]);
+		hm2.assign(i, xy.get_n()[i]);
+
+	}
 	return result;
 	
 	

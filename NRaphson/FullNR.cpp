@@ -50,7 +50,7 @@ int main() {
 Vector fun(Vector xy) {
 	double x = xy.get_n()[0];
 	double y = xy.get_n()[1];
-	return Vector({x*x+y,y+1 });
+	return Vector({x*x-4,y-1 });
 }
 
 
