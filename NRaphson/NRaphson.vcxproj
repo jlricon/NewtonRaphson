@@ -149,13 +149,12 @@
     <ClCompile Include="defines.cpp" />
     <ClCompile Include="deriv.cpp" />
     <ClCompile Include="FullNR.cpp" />
-  </ItemGroup>
-  <ItemGroup>
-    <None Include="ClassDiagram.cd" />
+    <ClCompile Include="invert.cpp" />
   </ItemGroup>
   <ItemGroup>
     <ClInclude Include="defines.h" />
     <ClInclude Include="deriv.h" />
+    <ClInclude Include="invert.h" />
   </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">

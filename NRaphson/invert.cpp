@@ -1,51 +1,44 @@
 #include "invert.h"
+#include "defines.h"
+#include <iostream>
+#include <algorithm>
 
+//From http://users.ices.utexas.edu/~alen/articles/mat-inv-rep.pdf
+
+double getR(const Matrix &a);
 Matrix invert(const Matrix & mat)
 {
-	
-	double a[mat.get_rows()][mat.get_cols()];
-	double d;
-	int i, j, k, n;
-	n = mat.get_rows();
-	
-	/************** partial pivoting **************/
-	for (i = n; i>1; i--)
-	{
-		if (a[i - 1][1]<a[i][1])
-			for (j = 1; j <= n * 2; j++)
-			{
-				d = a[i][j];
-				a[i][j] = a[i - 1][j];
-				a[i - 1][j] = d;
-			}
-	}
-
-	/********** reducing to diagonal  matrix ***********/
-
-	for (i = 1; i <= n; i++)
-	{
-		for (j = 1; j <= n * 2; j++)
-			if (j != i)
-			{
-				d = a[j][i] / a[i][i];
-				for (k = 1; k <= n * 2; k++)
-					a[j][k] -= a[i][k] * d;
-			}
-	}
-	/************** reducing to unit matrix *************/
-	for (i = 1; i <= n; i++)
-	{
-		d = a[i][i];
-		for (j = 1; j <= n * 2; j++)
-			a[i][j] = a[i][j] / d;
-	}
-	// Assign to matrix
-	Matrix ret(n,n);
+	unsigned i;
+	double R = getR(mat);
+	Matrix X=(1/(2*R))*mat.tr();
+	int n = mat.get_rows();
+	Matrix I(n, n);
 	for (i = 0; i < n; i++) {
-		for (j = 0; j < n; j++) {
-			ret.assign(i, j, a[i][j]);
-		}
+		I.assign(i, i, 1);
 	}
-	return ret;
+	Matrix I2(5*I);
+	Matrix I3(3*I);
+	Matrix I4 = I2*I3;
+	for (i = 0; i <100; i++) {
+		X = (X*(2 * I - mat*X));
+	
+	}
+
+	return X;
+}
+
+//Calculate R
+double getR(const Matrix &a) {
+	Matrix b = a*a.tr();
+	double n1 = 0, n2 = 0;
+	//Now we sum the columns
+	for (unsigned i = 0; i < a.get_rows(); i++) {
+		for (unsigned j = 0; j < a.get_cols(); j++) {
+			n1 += b(i, j);
+		}
+		n2 = std::max(n1, n2);
+		n1 = 0;
+	}
+	return n2;
 }
 

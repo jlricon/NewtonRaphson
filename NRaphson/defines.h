@@ -40,7 +40,7 @@ private:
 	unsigned rows;
 	unsigned cols;
 public:
-	vector<vector<double>>  get_n();
+	vector<vector<double>> const get_n();
 	vector<vector<double>>* get_np();
 	unsigned get_cols() const;
 	unsigned get_rows() const;
@@ -66,8 +66,9 @@ public:
 
 	double operator()(const unsigned & r, const unsigned & c) const;
 	Matrix inv() const;
-	Vector operator*(const Vector& rhs);
+	
 	void assign(const  unsigned& i,const unsigned& j, const double & val);
+	Matrix tr() const;
 		
 };
 
@@ -86,6 +87,10 @@ Vector abs(const Vector &a);
 bool operator<(const Vector &a, const double b);
 bool operator>(const Vector &a, const double b);
 bool isnan(const Vector &a);
+Matrix operator*(const double & a, const Matrix & mat);
+Matrix operator*(const Matrix & a,const Matrix & b);
+Matrix operator-(const Matrix & a, const Matrix & b);
+Vector operator*(const Matrix& mat, const Vector& rhs);
 
 
 

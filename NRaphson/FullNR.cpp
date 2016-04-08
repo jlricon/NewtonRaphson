@@ -14,12 +14,14 @@ using std::endl;
 
 
 ////// Problem definition //////
-Vector xy = { 0,0,0};
+Vector xy = { 1,1,1,1};
 
 Vector fun(Vector xy) {
 	double x = xy.get_n()[0];
 	double y = xy.get_n()[1];
-	return Vector({ x*x - 4,y - 1 });
+	double z = xy.get_n()[2];
+	double w = xy.get_n()[3];
+	return Vector({x+y+z*w,y*y+x*x-8,z+w*x-7,x+w*y+z-9});
 }
 ////// Problem definition //////
 
@@ -42,7 +44,6 @@ int main() {
 			gradient = deriv(funct, xy, 4).inv()*fun(xy);
 			if (isnan(gradient) || abs(gradient)>LIMITER) {
 				gradient = (gradient > 0) ? LIMITER : -LIMITER;
-				//gradient = deriv(funct, xy+1, 4).inv()*fun(xy+1);
 				limited = 1;
 			}
 			xy = xy - gradient;
