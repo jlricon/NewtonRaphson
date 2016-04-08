@@ -16,9 +16,6 @@ Matrix invert(const Matrix & mat)
 	for (i = 0; i < n; i++) {
 		I.assign(i, i, 1);
 	}
-	Matrix I2(5*I);
-	Matrix I3(3*I);
-	Matrix I4 = I2*I3;
 	for (i = 0; i <100; i++) {
 		X = (X*(2 * I - mat*X));
 	
