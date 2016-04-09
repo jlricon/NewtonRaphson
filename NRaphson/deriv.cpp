@@ -21,20 +21,19 @@ Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 2) {
 	Vector hm2 = xy;
 	Vector col;
 	if (order == 2) {
-		//Calculate one column
+		//Second order method
 		for (unsigned i = 0; i < xy.len(); i++) {
 
 			hm1.assign(i, xy(i) + EPSILON);
 			hm2.assign(i, xy(i) - EPSILON);
 			col = (funct(hm1) - funct(hm2)) / (2 * EPSILON);
-			for (unsigned j = 0; j < xy.len(); j++) {
-				result.assign(j, i, col(j));
-			}
+			for (unsigned j = 0; j < xy.len(); j++)result.assign(j, i, col(j));
 			hm1.assign(i, xy(i));
 			hm2.assign(i, xy(i));
 		}
 	}
 	else if (order == 4) {
+		//Fourth order method
 		Vector hm3=xy;
 		Vector hm4=xy;
 		for (unsigned i = 0; i < xy.len(); i++) {
@@ -43,9 +42,7 @@ Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 2) {
 			hm3.assign(i, xy(i) + EPSILON);
 			hm4.assign(i, xy(i) - EPSILON);
 			col = (funct(hm2) - 8*funct(hm4)+8*funct(hm3)-funct(hm1)) / (12 * EPSILON);
-			for (unsigned j = 0; j < xy.len(); j++) {
-				result.assign(j, i, col(j));
-			}
+			for (unsigned j = 0; j < xy.len(); j++)	result.assign(j, i, col(j));
 			hm1.assign(i, xy(i));
 			hm2.assign(i, xy(i));
 			hm3.assign(i, xy(i));
@@ -55,12 +52,10 @@ Matrix deriv(Vector(*funct)(Vector), Vector xy, int order = 2) {
 	}
 	else {
 		for (unsigned i = 0; i < xy.len(); i++) {
-
+			//First order method
 			hm2.assign(i, xy(i) - EPSILON);
 			col = (funct(xy) - funct(hm2)) / (EPSILON);
-			for (unsigned j = 0; j < xy.len(); j++) {
-				result.assign(j, i, col(j));
-			}
+			for (unsigned j = 0; j < xy.len(); j++)	result.assign(j, i, col(j));
 			hm1.assign(i, xy(i));
 			
 		}

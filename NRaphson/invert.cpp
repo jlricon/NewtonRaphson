@@ -11,20 +11,18 @@ Matrix invert(const Matrix & mat)
 	unsigned i;
 	double R = getR(mat);
 	Matrix X=(1/(2*R))*mat.tr();
-	int n = mat.get_rows();
+	unsigned n = mat.get_rows();
 	Matrix I(n, n);
-	for (i = 0; i < n; i++) {
-		I.assign(i, i, 1);
-	}
-	for (i = 0; i <100; i++) {
-		X = (X*(2 * I - mat*X));
-	
-	}
+	for (i = 0; i < n; i++)	I.assign(i, i, 1);
+	//Five iterations seems to be enough
+	//NR does not need a precise Jacobian to work well
+	for (i = 0; i <5; i++) X = (X*(2 * I - mat*X));
 
 	return X;
 }
 
 //Calculate R
+//R is the maximum of the row-sum of the transpose of A
 double getR(const Matrix &a) {
 	Matrix b = a*a.tr();
 	double n1 = 0, n2 = 0;

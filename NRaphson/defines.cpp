@@ -6,17 +6,20 @@
 #include <iostream>
 #include "defines.h"
 #include "invert.h"
+
 using std::vector;
 
+//Constructors and methods for the Vector class
 Vector::Vector(const  Vector &in) { nums = in.get_n(); }
 Vector::Vector(vector<double> in) { nums = in; }
 Vector::Vector(std::initializer_list<double> i) { nums = i; }
 Vector::Vector(int siz) { nums.resize(siz, 0); }
+Vector::Vector(const unsigned &a) { nums.resize(a); }
 void Vector::set(std::initializer_list<double> in) { nums = in; }
 void Vector::set(vector<double> in) { nums = in; }
 unsigned Vector::len() const { return (unsigned)nums.size(); }
 
-
+// Overload the << operator for the Vector class
 std::ostream& operator<<(std::ostream& os, const Vector& obj)
 {
 	for (unsigned i = 0; i < obj.len(); i++) {
@@ -24,6 +27,7 @@ std::ostream& operator<<(std::ostream& os, const Vector& obj)
 	}
 	return os;
 }
+//Overload the + operator to add vectors
 Vector operator+(const Vector& a, const Vector& b) {
 	Vector result;
 	vector <double> work;
@@ -34,6 +38,7 @@ Vector operator+(const Vector& a, const Vector& b) {
 	result.set(work);
 	return result;
 }
+//Overload the - operator to substract vectors
 Vector operator-(const Vector& a, const Vector& b) {
 	
 	vector <double> work;
@@ -43,6 +48,7 @@ Vector operator-(const Vector& a, const Vector& b) {
 	Vector result(work);
 	return result;
 }
+//Overload the - operator to substract a constant from a vector
 Vector operator-(const Vector & a, const double b)
 {
 	Vector result;
@@ -51,6 +57,7 @@ Vector operator-(const Vector & a, const double b)
 	result.set(va);
 	return result;
 }
+//Overload the + operator to add a constant to a vector
 Vector operator+(const Vector& a, const double b) {
 	Vector result;
 	vector <double> va = a.get_n();
@@ -58,6 +65,7 @@ Vector operator+(const Vector& a, const double b) {
 	result.set(va);
 	return result;
 	}
+//Overload the * operator to multiply (scalar) vectors
 Vector operator*(const Vector& a, const Vector& b) {
 	Vector result;
 	vector <double> work;
@@ -66,6 +74,7 @@ Vector operator*(const Vector& a, const Vector& b) {
 	result.set(work);
 	return result;
 }
+//Overload the * operator to multiply a constant by a vector
 Vector operator*(const double & a, const Vector & b)
 {
 	Vector result;
@@ -74,6 +83,7 @@ Vector operator*(const double & a, const Vector & b)
 	result.set(va);
 	return result;
 }
+//Overload the / operator to divide vectors
 Vector operator/(const Vector& a, const Vector& b) {
 	Vector result;
 	vector <double> work;
@@ -82,6 +92,7 @@ Vector operator/(const Vector& a, const Vector& b) {
 	result.set(work);
 	return result;
 }
+//Overload the / operator to divide vectors by a constant
 Vector operator/(const Vector& a, const double b) {
 	Vector result;
 	vector <double> va = a.get_n();
@@ -89,7 +100,7 @@ Vector operator/(const Vector& a, const double b) {
 	result.set(va);
 	return result;
 }
-
+//Overload the abs function for vectors
 Vector abs(const Vector &a) {
 	Vector result;
 	vector <double> va = a.get_n();
@@ -99,6 +110,7 @@ Vector abs(const Vector &a) {
 	result.set(va);
 	return result;
 }
+//Overload the < operator to compare vector to constants
 bool operator<(const Vector &a, const double b) {
 	vector <double> va = a.get_n();
 	for (int i = 0; i < va.size(); i++) {
@@ -106,6 +118,7 @@ bool operator<(const Vector &a, const double b) {
 	}
 	return 1;
 }
+//Overload the > operator to compare vector to constants
 bool operator>(const Vector &a, const double b) {
 	vector <double> va = a.get_n();
 	for (int i = 0; i < va.size(); i++) {
@@ -113,7 +126,7 @@ bool operator>(const Vector &a, const double b) {
 	}
 	return 1;
 }
-
+//Overload the = operator to make all of the elements of a vector equal to a constant
 void Vector::operator=( const double& b) {
 	vector <double> va = this->get_n();
 	for (int i = 0; i < va.size(); i++) {
@@ -122,7 +135,7 @@ void Vector::operator=( const double& b) {
 	}
 	
 }
-
+//Overload isnan to see if there is any nan elements in the vector
 bool isnan(const Vector& a) {
 	vector <double> va = a.get_n();
 	for (int i = 0; i < va.size(); i++) {
@@ -130,22 +143,19 @@ bool isnan(const Vector& a) {
 	}
 	return 0;
 }
+//
 
-Vector::Vector(const unsigned &a) {
-	nums.resize(a);
-}
-
+//Overload the () operator for vector to get values
 double Vector::operator()(const unsigned & a) const {
 	return this->nums[a];
 }
-
+//Method to assign values to vector elements (setter)
 void Vector ::assign(const unsigned & pos, const double & val){
 	nums[pos] = val;
 }
 
 
-//We need operators for vector/matrix
-
+//Methods and constructors for the Matrix class
 vector<vector<double>>  const Matrix::get_n() { return nums; }
 vector<vector<double>>*  Matrix::get_np() { return &nums; }
 Matrix::Matrix(int r, int c) {
@@ -164,11 +174,13 @@ Matrix::Matrix(const Matrix & a) {
 }
 unsigned Matrix::get_cols() const { return cols; }
 unsigned Matrix::get_rows() const { return rows; }
+
+//Overload the () operator for Matrix
 double Matrix::operator()(const unsigned & r, const unsigned & c) const {
 	return this->nums[r][c];
 }
 
-
+//Overload the *  operator to multiply matrices by vectors
 Vector operator*(const Matrix& mat, const Vector& rhs) {
 	Vector result(rhs.len());
 
@@ -181,7 +193,7 @@ Vector operator*(const Matrix& mat, const Vector& rhs) {
 
 	return result;
 }
-
+//Overload the * operator to multiply a constant by a Matrix
 Matrix operator*(const double & a, const Matrix & mat) {
 	Matrix result = mat;
 
@@ -194,7 +206,7 @@ Matrix operator*(const double & a, const Matrix & mat) {
 
 	return result;
 }
-
+//Overload * to multiply matrices together
 Matrix operator*(const Matrix & a, const Matrix & b) {
 	Matrix result(a.get_rows(), b.get_cols());
 	double suma = 0;
@@ -211,7 +223,7 @@ Matrix operator*(const Matrix & a, const Matrix & b) {
 
 	return result;
 }
-
+//Overload - to substract matrices
 Matrix operator-(const Matrix & a, const Matrix & b) {
 	Matrix result = a;
 	for (unsigned i = 0; i < a.get_rows(); i++) {
@@ -222,9 +234,11 @@ Matrix operator-(const Matrix & a, const Matrix & b) {
 	return result;
 }
 
-
+//Method to invert matrices. Use easy rules for the n=1,2 cases
+//If n>=3, call a function that uses iteration to calculate
 Matrix Matrix::inv() const{
 	Matrix ret = *this;
+	//Check if the matrix is square
 	try {
 		if (this->get_cols() == ret.get_rows()) {
 			if (ret.get_cols() == 1) {
@@ -251,12 +265,16 @@ Matrix Matrix::inv() const{
 		}
 	}
 	catch (int n) { std::cout <<n<< "Columns and rows are not equal!"; }
+	//Don't invert the Matrix if it is not possible
 	return ret;
 }
 
+//Setter for Matrix
 void Matrix::assign(const unsigned & i, const unsigned& j, const double&val) {
 	nums[i][j] = val;
 }
+
+//Transpose method for Matrix
 Matrix Matrix::tr()const {
 	Matrix sol=*this;
 	double temp;

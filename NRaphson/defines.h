@@ -58,7 +58,6 @@ public:
 			for (unsigned j = 0; j < cols; j++) {
 				nums[i][j] = a(i, j);
 			}
-			
 		}
 		return *this;
 		
@@ -72,7 +71,7 @@ public:
 		
 };
 
-//Overloads for vector
+//Declare the overloads that are defined in the header
 
 Vector operator+(const Vector& a, const Vector& b);
 Vector operator-(const Vector& a, const Vector& b);
