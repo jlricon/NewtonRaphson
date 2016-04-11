@@ -5,11 +5,11 @@
 //Max number of iterations for NR
 #define NITMAX 100
 //Accuracy for NR
-#define TOL 1e-4
+#define TOL 1e-5
 //Max gradient allowed
 #define LIMITER 1e4
 //Epsilon for differentiation
-#define EPSILON 1e-4
+#define EPSILON 1e-5
 using std::vector;
 
 //Define vector class

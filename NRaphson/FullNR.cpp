@@ -14,14 +14,14 @@ using std::endl;
 
 
 ////// Problem definition //////
-Vector xy = {1,1};
+Vector xy = {1,1,1};
 
 Vector fun(Vector xy) {
 	double x = xy.get_n()[0];
 	double y = xy.get_n()[1];
-	//double z = xy.get_n()[2];
+	double z = xy.get_n()[2];
 	
-	return Vector({exp(-exp(-x+y))-y*(1+x*x),x*cos(y)+y*sin(x)-0.5});
+	return Vector({2*z-3*z*z+1,x-3*z+y-3*z*y,2*z-6*y+3*y*y});
 }
 ////// Problem definition //////
 
@@ -43,7 +43,7 @@ int main() {
 		printnums(xy);		
 		//Main loop
 		for (int i = 0; i < NITMAX; i++) {
-			cout << "I am at " << xy;
+			cout << "I am at " << xy<<endl;
 			//Gradient calculation G=Jac^-1*f(x)
 			gradient = deriv(funct, xy, 4).inv()*fun(xy);
 			//Gradient limiter. In case the Jacobian has det=0, limit the gradient
@@ -52,7 +52,7 @@ int main() {
 				limited = 1;
 			}
 			xy = xy - gradient;
-			cout << " and I went to " << xy << " using gradient " << gradient << endl;
+			//cout << " and I went to " << xy << " using gradient " << gradient << endl;
 			//Say if the gradient has been limited
 			if (limited == 1) { cout << "GRADIENT LIMITED!" << endl; limited = 0; }
 			//Check convergence. All values of the function must be smaller than TOL
