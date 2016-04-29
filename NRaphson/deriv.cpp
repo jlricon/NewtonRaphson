@@ -1,6 +1,7 @@
 #include "deriv.h"
 #include "defines.h"
 
+
 //Differentiation of non-vectors
 double deriv(double (*funct)(double), double h, int order = 4) {
 

@@ -16,7 +16,7 @@ Matrix invert(const Matrix & mat)
 	for (i = 0; i < n; i++)	I.assign(i, i, 1);
 	//Five iterations seems to be enough
 	//NR does not need a precise Jacobian to work well
-	for (i = 0; i <5; i++) X = (X*(2 * I - mat*X));
+	for (i = 0; i <INVERMAX; i++) X = (X*(2 * I - mat*X));
 
 	return X;
 }
