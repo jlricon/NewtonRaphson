@@ -1,9 +1,6 @@
 #pragma once
 #include <ostream>
 #include <vector>
-
-
-
 using std::vector;
 
 //Define vector class
@@ -25,7 +22,6 @@ public:
 	void operator=( const double &b);
 	double operator()(const unsigned & a) const;
 	void assign(const  unsigned& pos, const double & val);
-
 };
 //Define Matrix class
 class Matrix {
@@ -53,20 +49,17 @@ public:
 				nums[i][j] = a(i, j);
 			}
 		}
-		return *this;
-		
+		return *this;		
 	}
 
 	double operator()(const unsigned & r, const unsigned & c) const;
 	Matrix inv() const;
 	
 	void assign(const  unsigned& i,const unsigned& j, const double & val);
-	Matrix tr() const;
-		
+	Matrix tr() const;		
 };
 
 //Declare the overloads that are defined in the header
-
 Vector operator+(const Vector& a, const Vector& b);
 Vector operator-(const Vector& a, const Vector& b);
 Vector operator-(const Vector& a, const double b);
@@ -84,6 +77,3 @@ Matrix operator*(const double & a, const Matrix & mat);
 Matrix operator*(const Matrix & a,const Matrix & b);
 Matrix operator-(const Matrix & a, const Matrix & b);
 Vector operator*(const Matrix& mat, const Vector& rhs);
-
-
-
